@@ -1,0 +1,118 @@
+{
+  "name": "Assignment 8 App Generator 24-11-2025",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "fcc82c90-340e-44a4-a74e-4b808edba4c1",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -32
+      ],
+      "id": "681eadf4-6125-4958-9e0a-5ffe7d214545",
+      "name": "Webhook",
+      "webhookId": "fcc82c90-340e-44a4-a74e-4b808edba4c1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Generate a working Python application based on this description:\n{{ $json.body.prompt }}\n\nReturn only Python code inside triple backticks and must follow the rules from system prompt.\n ",
+        "options": {
+          "systemMessage": "You are an AI code generator. Based on the user's idea, generate Python code as follows:\n\n1. If the idea sounds like a GUI application, calculator, task manager, quiz, or dashboard → generate a Streamlit app.\n   - Return only valid Python code\n\n2. If the idea sounds like a game (e.g., snake, pong, shooting, racing) → generate a Pygame game.\n   - Generate a complete runnable Python script.\n   - Return only Python code.\n\nAlways return **only Python code**, no explanations, no markdown.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -48,
+        -32
+      ],
+      "id": "cc9369be-d306-4e41-b3f2-473f16f53d96",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        176
+      ],
+      "id": "3f42b26f-a45b-4f89-8f69-fde9ffb37950",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "TLBijltmve5wDZVd",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        304,
+        -32
+      ],
+      "id": "21c651c0-fe3c-4bdf-8852-c17d2d12c353",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8fdff031-0c21-49a3-ab1f-1008da3bafba",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "90b1b54b4dceee9b8134d26bbc6e046ec3a0b2d15329685b216442971506d46d"
+  },
+  "id": "DSM9IEyYaPUXbVUY",
+  "tags": []
+}
