@@ -33,7 +33,7 @@ It integrates **Streamlit**, **Python**, and **N8N AI Agents** to automatically:
 
 ## 📁 Folder Structure  
 project-folder/
-│── app.py # Main Streamlit UI
-│── app1.py # Auto-generated app/game file
-│── README.md # Project documentation
-│── n8n_workflow.json 
+# │── app.py # Main Streamlit UI
+# │── app1.py # Auto-generated app/game file
+# │── README.md # Project documentation
+# │── Assignment AGentic Based App / game n8n_workflow.json 
